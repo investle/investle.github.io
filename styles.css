@@ -26,18 +26,18 @@ html,
 body {
   margin: 0;
   padding: 0;
-  min-height: 100%;
+  min-height: 100vh;
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
   background: radial-gradient(circle at top, #0b1120 0, #020617 60%, #000 100%);
   color: var(--text-main);
 }
 
-/* PAGE SHELL */
+/* PAGE SHELL – stretch full width */
 
 .page {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;             /* no centered “box” */
   padding: 18px 14px 28px;
   display: flex;
   flex-direction: column;
@@ -47,6 +47,8 @@ body {
 /* TOP BAR */
 
 .top-bar {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -137,10 +139,11 @@ body {
 /* LAYOUT */
 
 .layout {
+  max-width: 1200px;
+  margin: 4px auto 0;
   display: grid;
   grid-template-columns: minmax(0, 3fr) minmax(260px, 1.8fr);
   gap: 14px;
-  margin-top: 4px;
 }
 
 .main-column {
@@ -283,7 +286,7 @@ body {
 
 .table-wrapper {
   width: 100%;
-  overflow-x: hidden; /* kill horizontal scrollbar */
+  overflow-x: hidden; /* no horizontal scrollbar */
   border-radius: 12px;
   border: 1px solid #0b1220;
   background: radial-gradient(circle at top, #020617 0%, #020617 70%, #000 100%);
@@ -305,16 +308,18 @@ body {
   padding: 7px 9px;
   text-align: left;
   border-bottom: 1px solid rgba(15, 23, 42, 0.9);
-  white-space: normal;           /* allow wrapping */
-  word-break: break-word;        /* break long labels if needed */
+  white-space: normal;
+  word-break: break-word;
 }
 
+/* keep headers on one line so they don't “roll over” */
 .guesses-table th {
   font-weight: 500;
   font-size: 0.72rem;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  white-space: nowrap;
 }
 
 .guesses-table tbody tr:hover {
@@ -430,7 +435,8 @@ body {
 /* FOOTER */
 
 .footer {
-  margin-top: 10px;
+  max-width: 1200px;
+  margin: 10px auto 0;
   font-size: 0.75rem;
   color: var(--text-muted);
   text-align: center;
@@ -482,6 +488,14 @@ body.theme-light .table-wrapper {
   border-color: #fbcfe8;
 }
 
+body.theme-light .guesses-table thead {
+  background: #ffe4e6;
+}
+
+body.theme-light .guesses-table th {
+  color: #9f1239;
+}
+
 body.theme-light .guesses-table tbody tr:hover {
   background: rgba(255, 228, 230, 0.85);
 }
@@ -503,6 +517,23 @@ body.theme-light #guess-input {
 
 body.theme-light .primary-btn {
   box-shadow: 0 10px 26px rgba(236, 72, 153, 0.45);
+}
+
+/* make hint pills pink-theme too */
+body.theme-light .match {
+  background: rgba(34, 197, 94, 0.16);
+  border-color: #16a34a;
+}
+
+body.theme-light .near {
+  background: rgba(251, 191, 36, 0.22);
+  border-color: #d97706;
+}
+
+body.theme-light .miss {
+  background: rgba(248, 250, 252, 0.9);
+  border-color: #e5e7eb;
+  color: #6b7280;
 }
 
 /* STATUS COLORS */
