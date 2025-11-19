@@ -1,4 +1,4 @@
-const MAX_GUESSES = 8;
+const MAX_GUESSES = 10;
 const SHUFFLE_SEED = 123456789; // fixed seed for deterministic shuffle
 const GAME_START = { year: 2025, month: 1, day: 1 }; // day 0 in ET
 
