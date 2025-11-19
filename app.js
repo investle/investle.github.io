@@ -183,18 +183,6 @@ function setStatus(msg, kind) {
   if (kind === "info") statusMessage.style.color = "#93c5fd";
 }
 
-function buildCategoricalCell(guessVal, targetVal, displayVal) {
-  const div = document.createElement("div");
-  const cls = guessVal === targetVal ? "match" : "miss";
-  div.className = `cell ${cls}`;
-  const span = document.createElement("span");
-  span.className = "value";
-  span.textContent = displayVal || guessVal;
-  div.title = guessVal; // full text on hover
-  div.appendChild(span);
-  return div;
-}
-
 function shortSectorLabel(sector) {
   switch ((sector || "").toLowerCase()) {
     case "information technology":
@@ -214,6 +202,18 @@ function shortSectorLabel(sector) {
   }
 }
 
+function buildCategoricalCell(guessVal, targetVal, displayVal) {
+  const div = document.createElement("div");
+  const cls = guessVal === targetVal ? "match" : "miss";
+  div.className = `cell ${cls}`;
+  const span = document.createElement("span");
+  span.className = "value";
+  span.textContent = displayVal || guessVal;
+  div.title = guessVal; // show full text on hover
+  div.appendChild(span);
+  return div;
+}
+
 function renderGuesses() {
   guessesBody.innerHTML = "";
   guessesCounter.textContent = `${guesses.length} / ${MAX_GUESSES} guesses used`;
@@ -221,31 +221,38 @@ function renderGuesses() {
   guesses.forEach((g) => {
     const tr = document.createElement("tr");
 
-    // Ticker
-    const tdTicker = document.createElement("td");
-    tdTicker.textContent = g.ticker;
-    tr.appendChild(tdTicker);
+    // STOCK cell: ticker + name
+    const tdStock = document.createElement("td");
+    const stockContainer = document.createElement("div");
+    stockContainer.className = "stock-cell";
 
-    // Name
-    const tdName = document.createElement("td");
-    tdName.textContent = g.name;
-    tr.appendChild(tdName);
+    const tickerSpan = document.createElement("span");
+    tickerSpan.className = "stock-ticker";
+    tickerSpan.textContent = g.ticker;
 
-   // Sector (short label, full sector in tooltip)
+    const nameSpan = document.createElement("span");
+    nameSpan.className = "stock-name";
+    nameSpan.textContent = g.name;
+
+    stockContainer.appendChild(tickerSpan);
+    stockContainer.appendChild(nameSpan);
+    tdStock.appendChild(stockContainer);
+    tr.appendChild(tdStock);
+
+    // SECTOR (short label, full in tooltip)
     const tdSector = document.createElement("td");
     tdSector.appendChild(
       buildCategoricalCell(g.sector, secret.sector, shortSectorLabel(g.sector))
     );
     tr.appendChild(tdSector);
 
-
-    // Price (new)
+    // PRICE
     const tdPrice = document.createElement("td");
     const priceClass = colorForNumeric(
       g.price,
       secret.price,
-      secret.price * 0.02,  // within ~2% => green
-      secret.price * 0.08   // within ~8% => yellow
+      secret.price * 0.02,  // within ~2% -> green
+      secret.price * 0.08   // within ~8% -> yellow
     );
     const priceArrow = getArrow(g.price, secret.price);
     const priceCell = document.createElement("div");
@@ -263,7 +270,7 @@ function renderGuesses() {
     tdPrice.appendChild(priceCell);
     tr.appendChild(tdPrice);
 
-    // Market cap bucket
+    // MARKET CAP
     const tdCap = document.createElement("td");
     const gBucket = marketCapBucket(g.marketCap);
     const sBucket = marketCapBucket(secret.marketCap);
@@ -284,7 +291,7 @@ function renderGuesses() {
     tdCap.appendChild(capCell);
     tr.appendChild(tdCap);
 
-    // IPO year
+    // IPO YEAR
     const tdIpo = document.createElement("td");
     const ipoClass = colorForNumeric(g.ipoYear, secret.ipoYear, 2, 5);
     const ipoArrow = getArrow(g.ipoYear, secret.ipoYear);
@@ -303,7 +310,7 @@ function renderGuesses() {
     tdIpo.appendChild(ipoCell);
     tr.appendChild(tdIpo);
 
-    // 1Y return
+    // 1Y RETURN
     const tdRet = document.createElement("td");
     const retClass = colorForNumeric(
       g.oneYearReturnPct,
@@ -330,7 +337,7 @@ function renderGuesses() {
     tdRet.appendChild(retCell);
     tr.appendChild(tdRet);
 
-    // Dividend yield
+    // DIVIDEND YIELD
     const tdDiv = document.createElement("td");
     const divClass = divColorClass(
       g.dividendYieldPct,
@@ -351,29 +358,6 @@ function renderGuesses() {
     guessesBody.appendChild(tr);
   });
 }
-
-function showAnswer() {
-  const lines = [];
-  lines.push(`${secret.ticker} – ${secret.name}`);
-  lines.push(`Sector: ${secret.sector}`);
-  lines.push(
-    `Country: ${secret.country}, Price: $${secret.price.toFixed(2)}, ` +
-    `Market cap: ${secret.marketCap.toFixed(2)}B`
-  );
-  lines.push(
-    `IPO Year: ${secret.ipoYear}, 1Y Return: ${
-      (secret.oneYearReturnPct >= 0 ? "+" : "") +
-      secret.oneYearReturnPct.toFixed(2)
-    }%, Dividend yield: ${
-      secret.dividendYieldPct > 0
-        ? secret.dividendYieldPct.toFixed(2) + "%"
-        : "None"
-    }`
-  );
-
-  answerReveal.textContent = lines.join("\n");
-}
-
 
 // -------- Game logic --------
 
