@@ -283,7 +283,7 @@ body {
 
 .table-wrapper {
   width: 100%;
-  overflow-x: visible; /* no horizontal scrollbar */
+  overflow-x: visible;           /* no horizontal scroll */
   border-radius: 12px;
   border: 1px solid #0b1220;
   background: radial-gradient(circle at top, #020617 0%, #020617 70%, #000 100%);
@@ -293,7 +293,8 @@ body {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.78rem;
-  /* no min-width so table fits container */
+  /* remove min-width so it shrinks with the card */
+  /* min-width: 640px;  <-- delete this line */
 }
 
 .guesses-table thead {
