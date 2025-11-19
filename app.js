@@ -1,4 +1,4 @@
-const MAX_GUESSES = 10;
+const MAX_GUESSES = 8;
 const SHUFFLE_SEED = 123456789; // fixed seed for deterministic shuffle
 const GAME_START = { year: 2025, month: 1, day: 1 }; // day 0 in ET
 
@@ -215,11 +215,6 @@ function renderGuesses() {
     const tdSector = document.createElement("td");
     tdSector.appendChild(buildCategoricalCell(g.sector, secret.sector));
     tr.appendChild(tdSector);
-
-    // Country
-    const tdCountry = document.createElement("td");
-    tdCountry.appendChild(buildCategoricalCell(g.country, secret.country));
-    tr.appendChild(tdCountry);
 
     // Market cap bucket
     const tdCap = document.createElement("td");
