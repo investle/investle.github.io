@@ -286,10 +286,21 @@ body {
 
 .table-wrapper {
   width: 100%;
-  overflow-x: hidden; /* no horizontal scrollbar */
   border-radius: 12px;
   border: 1px solid #0b1220;
   background: radial-gradient(circle at top, #020617 0%, #020617 70%, #000 100%);
+  overflow-x: hidden;   /* desktop: no horizontal scroll */
+}
+/* Tablet & phone: allow horizontal scroll so all 7 columns fit nicely */
+@media (max-width: 880px) {
+  .table-wrapper {
+    overflow-x: auto;               /* enable sideways scroll */
+    -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
+  }
+
+  .guesses-table {
+    min-width: 900px;               /* table can be wider than screen */
+  }
 }
 
 .guesses-table {
