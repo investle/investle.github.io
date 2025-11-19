@@ -300,12 +300,12 @@ body {
 }
 
 /* column widths tuned for breathing room */
-.col-stock  { width: 30%; }
-.col-sector { width: 16%; }
-.col-price  { width: 10%; }
-.col-cap    { width: 14%; }
-.col-ipo    { width: 8%; }
-.col-return { width: 11%; }
+.col-stock  { width: 17%; }
+.col-sector { width: 18%; }
+.col-price  { width: 15%; }
+.col-cap    { width: 12%; }
+.col-ipo    { width: 12%; }
+.col-return { width: 15%; }
 .col-div    { width: 11%; }
 
 .guesses-table th,
