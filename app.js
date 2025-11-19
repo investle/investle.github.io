@@ -216,6 +216,30 @@ function renderGuesses() {
     tdSector.appendChild(buildCategoricalCell(g.sector, secret.sector));
     tr.appendChild(tdSector);
 
+    // Price (new)
+    const tdPrice = document.createElement("td");
+    const priceClass = colorForNumeric(
+      g.price,
+      secret.price,
+      secret.price * 0.02,  // within ~2% => green
+      secret.price * 0.08   // within ~8% => yellow
+    );
+    const priceArrow = getArrow(g.price, secret.price);
+    const priceCell = document.createElement("div");
+    priceCell.className = `cell ${priceClass}`;
+    const priceSpan = document.createElement("span");
+    priceSpan.className = "value";
+    priceSpan.textContent = `$${g.price.toFixed(2)}`;
+    priceCell.appendChild(priceSpan);
+    if (priceArrow) {
+      const arrowSpan = document.createElement("span");
+      arrowSpan.className = "arrow";
+      arrowSpan.textContent = priceArrow;
+      priceCell.appendChild(arrowSpan);
+    }
+    tdPrice.appendChild(priceCell);
+    tr.appendChild(tdPrice);
+
     // Market cap bucket
     const tdCap = document.createElement("td");
     const gBucket = marketCapBucket(g.marketCap);
@@ -310,7 +334,8 @@ function showAnswer() {
   lines.push(`${secret.ticker} – ${secret.name}`);
   lines.push(`Sector: ${secret.sector}`);
   lines.push(
-    `Country: ${secret.country}, Market cap: ${secret.marketCap.toFixed(2)}B`
+    `Country: ${secret.country}, Price: $${secret.price.toFixed(2)}, ` +
+    `Market cap: ${secret.marketCap.toFixed(2)}B`
   );
   lines.push(
     `IPO Year: ${secret.ipoYear}, 1Y Return: ${
@@ -325,6 +350,7 @@ function showAnswer() {
 
   answerReveal.textContent = lines.join("\n");
 }
+
 
 // -------- Game logic --------
 
