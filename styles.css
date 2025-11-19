@@ -296,32 +296,26 @@ body {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.78rem;
-  table-layout: auto;
+  table-layout: fixed;      /* fixed so width doesn’t jitter */
 }
 
-.guesses-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.78rem;
-  table-layout: fixed;      /* <- fixed column widths */
-}
-
-/* column widths (tweak if you like) */
+/* column widths – tweak as you like */
 .col-ticker  { width: 9%; }
 .col-company { width: 21%; }
-.col-sector  { width: 18%; }
+.col-sector  { width: 16%; }
+.col-price   { width: 10%; }
 .col-cap     { width: 14%; }
-.col-ipo     { width: 10%; }
-.col-return  { width: 14%; }
-.col-div     { width: 14%; }
+.col-ipo     { width: 8%; }
+.col-return  { width: 11%; }
+.col-div     { width: 11%; }
 
 .guesses-table th,
 .guesses-table td {
   padding: 7px 9px;
   text-align: left;
   border-bottom: 1px solid rgba(15, 23, 42, 0.9);
-  overflow: hidden;           /* keep pills from pushing width */
-  text-overflow: ellipsis;    /* truncate really long text */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* headers: keep on one line */
