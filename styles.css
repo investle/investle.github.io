@@ -283,7 +283,7 @@ body {
 
 .table-wrapper {
   width: 100%;
-  overflow-x: visible;           /* no horizontal scroll */
+  overflow-x: hidden; /* kill horizontal scrollbar */
   border-radius: 12px;
   border: 1px solid #0b1220;
   background: radial-gradient(circle at top, #020617 0%, #020617 70%, #000 100%);
@@ -293,8 +293,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.78rem;
-  /* remove min-width so it shrinks with the card */
-  /* min-width: 640px;  <-- delete this line */
+  table-layout: auto;
 }
 
 .guesses-table thead {
@@ -306,7 +305,8 @@ body {
   padding: 7px 9px;
   text-align: left;
   border-bottom: 1px solid rgba(15, 23, 42, 0.9);
-  white-space: nowrap;
+  white-space: normal;           /* allow wrapping */
+  word-break: break-word;        /* break long labels if needed */
 }
 
 .guesses-table th {
