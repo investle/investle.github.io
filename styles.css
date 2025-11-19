@@ -299,15 +299,15 @@ body {
   table-layout: fixed;
 }
 
-/* tweak widths as you like; these are a good starting point */
-.col-ticker  { width: 8%; }
-.col-company { width: 24%; }
-.col-sector  { width: 14%; }
+/* a bit more room for NAME & SECTOR */
+.col-ticker  { width: 7%; }
+.col-company { width: 26%; }
+.col-sector  { width: 17%; }
 .col-price   { width: 10%; }
-.col-cap     { width: 14%; }
-.col-ipo     { width: 8%; }
-.col-return  { width: 11%; }
-.col-div     { width: 11%; }
+.col-cap     { width: 13%; }
+.col-ipo     { width: 7%; }
+.col-return  { width: 10%; }
+.col-div     { width: 10%; }
 
 .guesses-table th,
 .guesses-table td {
@@ -316,7 +316,7 @@ body {
   border-bottom: 1px solid rgba(15, 23, 42, 0.9);
 }
 
-/* Only body cells can ellipsis, not headers */
+/* only body cells may ellipsis */
 .guesses-table td {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -341,12 +341,12 @@ body {
 .cell {
   border-radius: 999px;
   border: 1px solid #4b5563;
-  padding: 2px 7px;
+  padding: 1px 6px;          /* was 2px 7px */
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.78rem;
-  line-height: 1.4;
+  font-size: 0.74rem;        /* a bit smaller */
+  line-height: 1.3;
 }
 
 .cell .value {
