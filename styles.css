@@ -1,0 +1,284 @@
+/* Base reset-ish */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: #020617;
+  color: #e5e7eb;
+}
+
+/* App shell */
+.app-shell {
+  min-height: 100vh;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 16px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.app-header {
+  text-align: center;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: 0.08em;
+}
+
+.tagline {
+  margin: 4px 0 0;
+  color: #9ca3af;
+  font-size: 0.95rem;
+}
+
+/* Main content */
+.app-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Input section */
+.input-section {
+  background: #020617;
+  border-radius: 12px;
+  border: 1px solid #1f2937;
+  padding: 12px 12px 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+.input-row {
+  display: flex;
+  gap: 8px;
+}
+
+#guess-input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid #374151;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 1rem;
+  outline: none;
+}
+
+#guess-input::placeholder {
+  color: #6b7280;
+}
+
+#guess-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px #1d4ed8;
+}
+
+#guess-btn {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: none;
+  background: #3b82f6;
+  color: #f9fafb;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#guess-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+#guess-btn:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+.status-message {
+  margin: 8px 2px 0;
+  min-height: 1.2em;
+  font-size: 0.85rem;
+  color: #f97316;
+}
+
+/* Guesses table */
+
+.guesses-section {
+  background: #020617;
+  border-radius: 12px;
+  border: 1px solid #1f2937;
+  padding: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.table-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.table-header-row h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+#guesses-counter {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.guesses-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  min-width: 640px;
+}
+
+.guesses-table thead {
+  background: #020617;
+}
+
+.guesses-table th,
+.guesses-table td {
+  padding: 6px 8px;
+  text-align: left;
+  border-bottom: 1px solid #111827;
+  white-space: nowrap;
+}
+
+.guesses-table th {
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+/* Cells with color */
+.cell {
+  border-radius: 8px;
+  border: 1px solid #4b5563;
+  padding: 3px 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cell span.value {
+  white-space: nowrap;
+}
+
+/* Match / near / miss */
+.match {
+  background: rgba(22, 163, 74, 0.25);
+  border-color: #16a34a;
+}
+
+.near {
+  background: rgba(234, 179, 8, 0.25);
+  border-color: #eab308;
+}
+
+.miss {
+  background: #111827;
+  border-color: #4b5563;
+  color: #9ca3af;
+}
+
+/* Arrows */
+.arrow {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+/* Legend */
+.legend-section {
+  border-radius: 12px;
+  border: 1px solid #111827;
+  padding: 10px 12px;
+  background: #020617;
+}
+
+.legend-section h3 {
+  margin: 0 0 6px;
+  font-size: 0.9rem;
+}
+
+.legend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 4px 12px;
+  font-size: 0.8rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+/* Footer */
+.app-footer {
+  margin-top: auto;
+  padding-top: 8px;
+  font-size: 0.8rem;
+  color: #6b7280;
+  text-align: center;
+}
+
+#answer-reveal {
+  white-space: pre-wrap;
+}
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+  .app-shell {
+    padding: 12px;
+  }
+
+  .input-row {
+    flex-direction: column;
+  }
+
+  #guess-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .guesses-table {
+    font-size: 0.75rem;
+  }
+
+  .guesses-table th,
+  .guesses-table td {
+    padding: 5px 6px;
+  }
+}
