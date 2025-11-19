@@ -76,17 +76,15 @@
 
             <p class="status-message" id="status-message"></p>
           </section>
-
           <section class="card table-card">
             <div class="card-header">
               <h2>Guesses</h2>
             </div>
-
+          
             <div class="table-wrapper">
               <table class="guesses-table">
                 <colgroup>
-                  <col class="col-ticker" />
-                  <col class="col-company" />
+                  <col class="col-stock" />
                   <col class="col-sector" />
                   <col class="col-price" />
                   <col class="col-cap" />
@@ -96,17 +94,18 @@
                 </colgroup>
                 <thead>
                   <tr>
-                    <th title="Ticker">TKR</th>
-                    <th title="Company Name">NAME</th>
-                    <th title="Sector">SECTOR</th>
-                    <th title="Share Price">PRICE</th>
-                    <th title="Market Capitalization">MKT&nbsp;CAP</th>
-                    <th title="IPO Year">IPO</th>
-                    <th title="1-Year Total Return">1Y&nbsp;RET</th>
-                    <th title="Dividend Yield">DIV&nbsp;%</th>
+                    <th>STOCK</th>
+                    <th>SECTOR</th>
+                    <th>PRICE</th>
+                    <th>MKT&nbsp;CAP</th>
+                    <th>IPO</th>
+                    <th>1Y&nbsp;RET</th>
+                    <th>DIV&nbsp;%</th>
                   </tr>
                 </thead>
-                <tbody id="guesses-body"></tbody>
+                <tbody id="guesses-body">
+                  <!-- rows inserted by app.js -->
+                </tbody>
               </table>
             </div>
           </section>
