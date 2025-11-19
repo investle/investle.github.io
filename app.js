@@ -1,4 +1,6 @@
 const MAX_GUESSES = 8;
+const SHUFFLE_SEED = 123456789; // fixed seed for deterministic shuffle
+const GAME_START = { year: 2025, month: 1, day: 1 }; // day 0 in ET
 
 let STOCKS = [];
 let secret = null;
@@ -14,23 +16,104 @@ const guessesCounter = document.getElementById("guesses-counter");
 const maxGuessesLabel = document.getElementById("max-guesses-label");
 const tickerList = document.getElementById("ticker-list");
 const answerReveal = document.getElementById("answer-reveal");
+const themeToggleBtn = document.getElementById("theme-toggle");
+const themeToggleLabel = document.getElementById("theme-toggle-label");
 
-// -------- Utility --------
+// -------- Theme handling --------
 
-function getDailyIndex(num) {
-  const today = new Date();
-  const seed =
-    today.getFullYear() * 10000 +
-    (today.getMonth() + 1) * 100 +
-    today.getDate();
-  let x = Math.sin(seed) * 10000;
-  const frac = x - Math.floor(x);
-  return Math.floor(frac * num);
+function applyTheme(theme) {
+  if (theme === "light") {
+    document.body.classList.add("theme-light");
+    if (themeToggleLabel) themeToggleLabel.textContent = "Light";
+  } else {
+    document.body.classList.remove("theme-light");
+    if (themeToggleLabel) themeToggleLabel.textContent = "Dark";
+  }
 }
+
+function initTheme() {
+  const stored = localStorage.getItem("investle-theme");
+  const prefersLight =
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: light)").matches;
+
+  const theme = stored || (prefersLight ? "light" : "dark");
+  applyTheme(theme);
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", () => {
+      const isLight = document.body.classList.contains("theme-light");
+      const next = isLight ? "dark" : "light";
+      applyTheme(next);
+      localStorage.setItem("investle-theme", next);
+    });
+  }
+}
+
+// -------- Time / daily index (ET) --------
+
+function getEasternDayIndex() {
+  const now = new Date();
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
+  const parts = formatter.formatToParts(now);
+  const year = parseInt(parts.find((p) => p.type === "year").value, 10);
+  const month = parseInt(parts.find((p) => p.type === "month").value, 10);
+  const day = parseInt(parts.find((p) => p.type === "day").value, 10);
+
+  const todayUTC = Date.UTC(year, month - 1, day);
+  const startUTC = Date.UTC(
+    GAME_START.year,
+    GAME_START.month - 1,
+    GAME_START.day
+  );
+
+  const diffMs = todayUTC - startUTC;
+  return Math.floor(diffMs / (1000 * 60 * 60 * 24));
+}
+
+// Mulberry32 seeded PRNG
+function mulberry32(a) {
+  return function () {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// Build deterministic shuffled order of indices
+function buildShuffledIndices(length) {
+  const indices = Array.from({ length }, (_, i) => i);
+  const rng = mulberry32(SHUFFLE_SEED);
+
+  for (let i = length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+  return indices;
+}
+
+// Pick today’s secret using ET day index
+function pickDailySecret(stocks) {
+  const n = stocks.length;
+  const indices = buildShuffledIndices(n);
+  const dayIndex = getEasternDayIndex();
+  const idx = indices[((dayIndex % n) + n) % n];
+  return stocks[idx];
+}
+
+// -------- Utility for hints --------
 
 function marketCapBucket(cap) {
   // cap in billions
-  if (cap < 2) return 0; // very small/small
+  if (cap < 2) return 0; // small
   if (cap < 10) return 1; // small/mid
   if (cap < 50) return 2; // mid
   if (cap < 200) return 3; // large
@@ -320,6 +403,8 @@ function onGuess() {
 // -------- Init --------
 
 async function init() {
+  initTheme();
+
   maxGuessesLabel.textContent = MAX_GUESSES.toString();
   guessesCounter.textContent = `0 / ${MAX_GUESSES} guesses used`;
   setStatus("Loading stock universe…", "info");
@@ -335,8 +420,8 @@ async function init() {
       throw new Error("stocks.json is empty or invalid");
     }
 
-    // Pick daily secret deterministically
-    secret = STOCKS[getDailyIndex(STOCKS.length)];
+    // Pick daily secret using pre-shuffled order & ET date
+    secret = pickDailySecret(STOCKS);
 
     // Fill datalist for autocomplete
     STOCKS.forEach((s) => {
