@@ -296,18 +296,17 @@ body {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.78rem;
-  table-layout: fixed;
+  table-layout: fixed;      /* stable width, no jitter */
 }
 
-/* a bit more room for NAME & SECTOR */
-.col-ticker  { width: 7%; }
-.col-company { width: 26%; }
-.col-sector  { width: 17%; }
-.col-price   { width: 10%; }
-.col-cap     { width: 13%; }
-.col-ipo     { width: 7%; }
-.col-return  { width: 10%; }
-.col-div     { width: 10%; }
+/* column widths tuned for breathing room */
+.col-stock  { width: 30%; }
+.col-sector { width: 16%; }
+.col-price  { width: 10%; }
+.col-cap    { width: 14%; }
+.col-ipo    { width: 8%; }
+.col-return { width: 11%; }
+.col-div    { width: 11%; }
 
 .guesses-table th,
 .guesses-table td {
@@ -316,13 +315,12 @@ body {
   border-bottom: 1px solid rgba(15, 23, 42, 0.9);
 }
 
-/* only body cells may ellipsis */
+/* only body cells can ellipsis, not headers */
 .guesses-table td {
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* headers: short & on one line */
 .guesses-table th {
   font-weight: 500;
   font-size: 0.72rem;
@@ -337,15 +335,32 @@ body {
 }
 
 /* HINT CELLS */
+/* STOCK cell: ticker on top, name below */
+
+.stock-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stock-ticker {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.stock-name {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
 
 .cell {
   border-radius: 999px;
   border: 1px solid #4b5563;
-  padding: 1px 6px;          /* was 2px 7px */
+  padding: 1px 6px;
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.74rem;        /* a bit smaller */
+  font-size: 0.74rem;
   line-height: 1.3;
 }
 
