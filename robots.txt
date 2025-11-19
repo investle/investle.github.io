@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://investle.cc/sitemap.xml
