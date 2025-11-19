@@ -4,93 +4,147 @@
     <meta charset="UTF-8" />
     <title>Investle</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Optional modern font -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="app-shell">
-      <header class="app-header">
-        <h1>Investle</h1>
-        <p class="tagline">
-          Guess today&#39;s mystery stock in <span id="max-guesses-label">8</span> tries.
-        </p>
+    <div class="page">
+      <header class="top-bar">
+        <div class="brand">
+          <div class="brand-mark">
+            <span class="brand-dot"></span>
+          </div>
+          <div class="brand-text">
+            <h1>Investle</h1>
+            <p>Guess the mystery stock in <span id="max-guesses-label">8</span> tries.</p>
+          </div>
+        </div>
+
+        <div class="top-meta">
+          <div class="pill pill-soft">
+            <span class="pill-label">Mode</span>
+            <span class="pill-value">Daily</span>
+          </div>
+        </div>
       </header>
 
-      <main class="app-main">
-        <section class="input-section">
-          <label for="guess-input" class="input-label">
-            Ticker or company name
-          </label>
+      <main class="layout">
+        <!-- Left column: input + table -->
+        <section class="main-column">
+          <section class="card input-card">
+            <div class="card-header">
+              <h2>Your guess</h2>
+              <span id="guesses-counter" class="subtle-text">0 / 8 guesses used</span>
+            </div>
 
-          <div class="input-row">
-            <input
-              id="guess-input"
-              type="text"
-              placeholder="AAPL or Apple"
-              autocomplete="off"
-              list="ticker-list"
-            />
-            <button id="guess-btn">Guess</button>
-          </div>
+            <label for="guess-input" class="field-label">
+              Ticker or company name
+            </label>
 
-          <datalist id="ticker-list">
-            <!-- Filled by app.js -->
-          </datalist>
+            <div class="input-row">
+              <div class="input-wrapper">
+                <input
+                  id="guess-input"
+                  type="text"
+                  placeholder="e.g. AAPL or Apple"
+                  autocomplete="off"
+                  list="ticker-list"
+                />
+              </div>
+              <button id="guess-btn" class="primary-btn">Guess</button>
+            </div>
 
-          <p class="status-message" id="status-message"></p>
+            <datalist id="ticker-list">
+              <!-- populated by app.js -->
+            </datalist>
+
+            <p class="status-message" id="status-message"></p>
+          </section>
+
+          <section class="card table-card">
+            <div class="card-header">
+              <h2>Guesses</h2>
+            </div>
+
+            <div class="table-wrapper">
+              <table class="guesses-table">
+                <thead>
+                  <tr>
+                    <th>Ticker</th>
+                    <th>Company</th>
+                    <th>Sector</th>
+                    <th>Country</th>
+                    <th>Market Cap</th>
+                    <th>IPO Year</th>
+                    <th>1Y Return</th>
+                    <th>Dividend Yield</th>
+                  </tr>
+                </thead>
+                <tbody id="guesses-body">
+                  <!-- rows inserted by app.js -->
+                </tbody>
+              </table>
+            </div>
+          </section>
         </section>
 
-        <section class="guesses-section">
-          <div class="table-header-row">
-            <h2>Guesses</h2>
-            <span id="guesses-counter"></span>
-          </div>
+        <!-- Right column: legend + reveal -->
+        <aside class="side-column">
+          <section class="card legend-card">
+            <div class="card-header">
+              <h2>How to read hints</h2>
+            </div>
+            <div class="legend-grid">
+              <div class="legend-item">
+                <span class="legend-swatch match"></span>
+                <div class="legend-copy">
+                  <strong>Green</strong>
+                  <span>Exact or very close match</span>
+                </div>
+              </div>
+              <div class="legend-item">
+                <span class="legend-swatch near"></span>
+                <div class="legend-copy">
+                  <strong>Yellow</strong>
+                  <span>Nearby bucket or close value</span>
+                </div>
+              </div>
+              <div class="legend-item">
+                <span class="legend-swatch miss"></span>
+                <div class="legend-copy">
+                  <strong>Grey</strong>
+                  <span>Far off / no match</span>
+                </div>
+              </div>
+              <div class="legend-item">
+                <span class="legend-swatch neutral"></span>
+                <div class="legend-copy">
+                  <strong>▲ / ▼</strong>
+                  <span>Secret stock is higher / lower than your guess</span>
+                </div>
+              </div>
+            </div>
+          </section>
 
-          <div class="table-wrapper">
-            <table class="guesses-table">
-              <thead>
-                <tr>
-                  <th>Ticker</th>
-                  <th>Company</th>
-                  <th>Sector</th>
-                  <th>Country</th>
-                  <th>Market Cap</th>
-                  <th>IPO Year</th>
-                  <th>1Y Return</th>
-                  <th>Dividend Yield</th>
-                </tr>
-              </thead>
-              <tbody id="guesses-body">
-                <!-- Rows inserted dynamically -->
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <section class="legend-section">
-          <h3>Legend</h3>
-          <div class="legend-grid">
-            <div class="legend-item">
-              <span class="legend-swatch match"></span>
-              <span>Exact / very close match</span>
+          <section class="card reveal-card">
+            <div class="card-header">
+              <h2>Today&#39;s answer</h2>
             </div>
-            <div class="legend-item">
-              <span class="legend-swatch near"></span>
-              <span>Somewhat close / same bucket</span>
-            </div>
-            <div class="legend-item">
-              <span class="legend-swatch miss"></span>
-              <span>Far off / no match</span>
-            </div>
-            <div class="legend-item">
-              <span>▲ / ▼</span>
-              <span>Target is higher / lower than your guess</span>
-            </div>
-          </div>
-        </section>
+            <pre id="answer-reveal" class="answer-box">
+Make a few guesses to reveal hints.
+            </pre>
+          </section>
+        </aside>
       </main>
 
-      <footer class="app-footer">
-        <span id="answer-reveal"></span>
+      <footer class="footer">
+        <span>Built as a stock-guessing puzzle. Data snapshot only, not investment advice.</span>
       </footer>
     </div>
 
