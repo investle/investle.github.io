@@ -299,20 +299,32 @@ body {
   table-layout: auto;
 }
 
-.guesses-table thead {
-  background: linear-gradient(90deg, #020617, #020617);
+.guesses-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  table-layout: fixed;      /* <- fixed column widths */
 }
+
+/* column widths (tweak if you like) */
+.col-ticker  { width: 9%; }
+.col-company { width: 21%; }
+.col-sector  { width: 18%; }
+.col-cap     { width: 14%; }
+.col-ipo     { width: 10%; }
+.col-return  { width: 14%; }
+.col-div     { width: 14%; }
 
 .guesses-table th,
 .guesses-table td {
   padding: 7px 9px;
   text-align: left;
   border-bottom: 1px solid rgba(15, 23, 42, 0.9);
-  white-space: normal;
-  word-break: break-word;
+  overflow: hidden;           /* keep pills from pushing width */
+  text-overflow: ellipsis;    /* truncate really long text */
 }
 
-/* keep headers on one line so they don't “roll over” */
+/* headers: keep on one line */
 .guesses-table th {
   font-weight: 500;
   font-size: 0.72rem;
