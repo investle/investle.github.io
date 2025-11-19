@@ -183,15 +183,35 @@ function setStatus(msg, kind) {
   if (kind === "info") statusMessage.style.color = "#93c5fd";
 }
 
-function buildCategoricalCell(guessVal, targetVal) {
+function buildCategoricalCell(guessVal, targetVal, displayVal) {
   const div = document.createElement("div");
   const cls = guessVal === targetVal ? "match" : "miss";
   div.className = `cell ${cls}`;
   const span = document.createElement("span");
   span.className = "value";
-  span.textContent = guessVal;
+  span.textContent = displayVal || guessVal;
+  div.title = guessVal; // full text on hover
   div.appendChild(span);
   return div;
+}
+
+function shortSectorLabel(sector) {
+  switch ((sector || "").toLowerCase()) {
+    case "information technology":
+      return "Info Tech";
+    case "consumer discretionary":
+      return "Cons Disc";
+    case "consumer staples":
+      return "Cons Stap";
+    case "communication services":
+      return "Comm Serv";
+    case "health care":
+      return "Health";
+    case "real estate":
+      return "Real Est";
+    default:
+      return sector || "Unknown";
+  }
 }
 
 function renderGuesses() {
@@ -211,10 +231,13 @@ function renderGuesses() {
     tdName.textContent = g.name;
     tr.appendChild(tdName);
 
-    // Sector
+   // Sector (short label, full sector in tooltip)
     const tdSector = document.createElement("td");
-    tdSector.appendChild(buildCategoricalCell(g.sector, secret.sector));
+    tdSector.appendChild(
+      buildCategoricalCell(g.sector, secret.sector, shortSectorLabel(g.sector))
+    );
     tr.appendChild(tdSector);
+
 
     // Price (new)
     const tdPrice = document.createElement("td");
