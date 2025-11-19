@@ -301,9 +301,9 @@ body {
 
 /* column widths tuned for breathing room */
 .col-stock  { width: 17%; }
-.col-sector { width: 16%; }
+.col-sector { width: 14%; }
 .col-price  { width: 15%; }
-.col-cap    { width: 14%; }
+.col-cap    { width: 16%; }
 .col-ipo    { width: 12%; }
 .col-return { width: 15%; }
 .col-div    { width: 11%; }
