@@ -19,6 +19,15 @@ const answerReveal = document.getElementById("answer-reveal");
 const themeToggleBtn = document.getElementById("theme-toggle");
 const themeToggleLabel = document.getElementById("theme-toggle-label");
 
+function configureAutocomplete() {
+  // Only show ticker/company suggestions on desktop
+  const isDesktop = window.matchMedia("(min-width: 881px)").matches;
+  if (isDesktop) {
+    guessInput.setAttribute("list", "ticker-list");
+  } else {
+    guessInput.removeAttribute("list");
+  }
+}
 // -------- Theme handling --------
 
 function applyTheme(theme) {
@@ -447,7 +456,26 @@ async function init() {
     if (!Array.isArray(STOCKS) || STOCKS.length === 0) {
       throw new Error("stocks.json is empty or invalid");
     }
-
+    // After filling tickerList and enabling input:
+    STOCKS.forEach((s) => {
+      const optTicker = document.createElement("option");
+      optTicker.value = s.ticker;
+      tickerList.appendChild(optTicker);
+    
+      const optName = document.createElement("option");
+      optName.value = s.name;
+      tickerList.appendChild(optName);
+    });
+    
+    setStatus("Type a ticker or company name to start guessing.", "info");
+    guessBtn.disabled = false;
+    guessInput.disabled = false;
+    guessInput.focus();
+    
+    // Configure autocomplete visibility based on screen size
+    configureAutocomplete();
+    window.addEventListener("resize", configureAutocomplete);
+    
     // Pick daily secret using pre-shuffled order & ET date
     secret = pickDailySecret(STOCKS);
 
