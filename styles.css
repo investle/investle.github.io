@@ -1,6 +1,5 @@
 :root {
   --bg: #020617;
-  --bg-elevated: #020617;
   --bg-card: #020617;
   --border-subtle: #111827;
   --border-strong: #1f2933;
@@ -34,7 +33,7 @@ body {
   color: var(--text-main);
 }
 
-/* Page shell */
+/* PAGE SHELL */
 
 .page {
   max-width: 1200px;
@@ -45,7 +44,7 @@ body {
   gap: 16px;
 }
 
-/* Top bar */
+/* TOP BAR */
 
 .top-bar {
   display: flex;
@@ -54,7 +53,7 @@ body {
   gap: 12px;
   padding: 10px 14px;
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(15, 23, 42, 0.92);
   border: 1px solid rgba(15, 23, 42, 0.8);
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
   backdrop-filter: blur(16px);
@@ -103,7 +102,7 @@ body {
   gap: 8px;
 }
 
-/* Pills */
+/* PILLS */
 
 .pill {
   padding: 6px 10px;
@@ -131,7 +130,11 @@ body {
   font-weight: 500;
 }
 
-/* Layout */
+.theme-toggle {
+  cursor: pointer;
+}
+
+/* LAYOUT */
 
 .layout {
   display: grid;
@@ -152,7 +155,7 @@ body {
   gap: 12px;
 }
 
-/* Cards */
+/* CARDS */
 
 .card {
   background: radial-gradient(circle at top left, #020617 0, #020617 55%, #000 100%);
@@ -181,7 +184,7 @@ body {
   color: var(--text-muted);
 }
 
-/* Input area */
+/* INPUT AREA */
 
 .input-card {
   position: sticky;
@@ -269,9 +272,10 @@ body {
   margin: 8px 2px 0;
   min-height: 1.2em;
   font-size: 0.82rem;
+  color: var(--warn);
 }
 
-/* Table */
+/* TABLE */
 
 .table-card {
   padding-top: 10px;
@@ -279,7 +283,7 @@ body {
 
 .table-wrapper {
   width: 100%;
-  overflow-x: auto;
+  overflow-x: visible; /* no horizontal scrollbar */
   border-radius: 12px;
   border: 1px solid #0b1220;
   background: radial-gradient(circle at top, #020617 0%, #020617 70%, #000 100%);
@@ -289,7 +293,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.78rem;
-  min-width: 640px;
+  /* no min-width so table fits container */
 }
 
 .guesses-table thead {
@@ -316,7 +320,7 @@ body {
   background: rgba(15, 23, 42, 0.6);
 }
 
-/* Hint cells */
+/* HINT CELLS */
 
 .cell {
   border-radius: 999px;
@@ -332,8 +336,6 @@ body {
 .cell .value {
   white-space: nowrap;
 }
-
-/* Match / near / miss backgrounds */
 
 .match {
   background: rgba(34, 197, 94, 0.16);
@@ -351,43 +353,7 @@ body {
   color: var(--text-muted);
 }
 
-/* Legend swatches */
-
-.legend-swatch {
-  width: 16px;
-  height: 16px;
-  border-radius: 999px;
-  border: 1px solid transparent;
-}
-
-.legend-swatch.match {
-  background: rgba(34, 197, 94, 0.4);
-  border-color: rgba(34, 197, 94, 0.9);
-}
-
-.legend-swatch.near {
-  background: rgba(234, 179, 8, 0.4);
-  border-color: rgba(234, 179, 8, 0.9);
-}
-
-.legend-swatch.miss {
-  background: rgba(31, 41, 55, 1);
-  border-color: #4b5563;
-}
-
-.legend-swatch.neutral {
-  background: rgba(148, 163, 184, 0.25);
-  border-color: rgba(148, 163, 184, 0.8);
-}
-
-/* Arrows */
-
-.arrow {
-  font-size: 0.78rem;
-  opacity: 0.9;
-}
-
-/* Legend & reveal */
+/* LEGEND & REVEAL */
 
 .legend-card {
   padding-top: 10px;
@@ -420,6 +386,33 @@ body {
   color: var(--text-muted);
 }
 
+.legend-swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+.legend-swatch.match {
+  background: rgba(34, 197, 94, 0.4);
+  border-color: rgba(34, 197, 94, 0.9);
+}
+
+.legend-swatch.near {
+  background: rgba(234, 179, 8, 0.4);
+  border-color: rgba(234, 179, 8, 0.9);
+}
+
+.legend-swatch.miss {
+  background: rgba(31, 41, 55, 1);
+  border-color: #4b5563;
+}
+
+.legend-swatch.neutral {
+  background: rgba(148, 163, 184, 0.25);
+  border-color: rgba(148, 163, 184, 0.8);
+}
+
 .answer-box {
   margin: 0;
   padding: 10px 10px 12px;
@@ -433,7 +426,7 @@ body {
   white-space: pre-wrap;
 }
 
-/* Footer */
+/* FOOTER */
 
 .footer {
   margin-top: 10px;
@@ -442,13 +435,82 @@ body {
   text-align: center;
 }
 
-/* Status colors */
+/* LIGHT THEME (slight pink) */
+
+body.theme-light {
+  --bg: #fdf2f8;
+  --bg-card: #ffffff;
+  --border-subtle: #f9a8d4;
+  --border-strong: #f472b6;
+  --accent: #ec4899;
+  --accent-soft: rgba(236, 72, 153, 0.18);
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --danger: #dc2626;
+  --success: #16a34a;
+  --warn: #ea580c;
+  --shadow-soft: 0 14px 30px rgba(248, 113, 165, 0.22);
+}
+
+body.theme-light {
+  background: radial-gradient(circle at top, #ffe4e6 0, #fdf2f8 55%, #f9fafb 100%);
+}
+
+body.theme-light .top-bar {
+  background: rgba(255, 241, 242, 0.94);
+  border-color: rgba(251, 207, 232, 0.9);
+  box-shadow: 0 14px 30px rgba(244, 114, 182, 0.35);
+}
+
+body.theme-light .brand-mark {
+  background: radial-gradient(circle at 0% 0%, #fb7185 0%, #f97316 40%, #ec4899 100%);
+  box-shadow: 0 8px 22px rgba(244, 114, 182, 0.55);
+}
+
+body.theme-light .card {
+  background: #ffffff;
+  border-color: #f9a8d4;
+}
+
+body.theme-light .input-card {
+  background: linear-gradient(145deg, #fff1f2, #ffe4e6);
+}
+
+body.theme-light .table-wrapper {
+  background: #fdf2ff;
+  border-color: #fbcfe8;
+}
+
+body.theme-light .guesses-table tbody tr:hover {
+  background: rgba(255, 228, 230, 0.85);
+}
+
+body.theme-light .answer-box {
+  background: #fdf2f8;
+  border-color: #f9a8d4;
+}
+
+body.theme-light .pill-soft {
+  background: rgba(255, 241, 242, 0.9);
+  border-color: rgba(251, 207, 232, 0.9);
+}
+
+body.theme-light #guess-input {
+  background: #fdf2f8;
+  border-color: #fecdd3;
+}
+
+body.theme-light .primary-btn {
+  box-shadow: 0 10px 26px rgba(236, 72, 153, 0.45);
+}
+
+/* STATUS COLORS */
 
 #status-message {
   color: var(--warn);
 }
 
-/* Small screens */
+/* RESPONSIVE */
 
 @media (max-width: 880px) {
   .layout {
