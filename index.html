@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Investle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <h1>Investle</h1>
+        <p class="tagline">
+          Guess today&#39;s mystery stock in <span id="max-guesses-label">8</span> tries.
+        </p>
+      </header>
+
+      <main class="app-main">
+        <section class="input-section">
+          <label for="guess-input" class="input-label">
+            Ticker or company name
+          </label>
+
+          <div class="input-row">
+            <input
+              id="guess-input"
+              type="text"
+              placeholder="AAPL or Apple"
+              autocomplete="off"
+              list="ticker-list"
+            />
+            <button id="guess-btn">Guess</button>
+          </div>
+
+          <datalist id="ticker-list">
+            <!-- Filled by app.js -->
+          </datalist>
+
+          <p class="status-message" id="status-message"></p>
+        </section>
+
+        <section class="guesses-section">
+          <div class="table-header-row">
+            <h2>Guesses</h2>
+            <span id="guesses-counter"></span>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="guesses-table">
+              <thead>
+                <tr>
+                  <th>Ticker</th>
+                  <th>Company</th>
+                  <th>Sector</th>
+                  <th>Country</th>
+                  <th>Market Cap</th>
+                  <th>IPO Year</th>
+                  <th>1Y Return</th>
+                  <th>Dividend Yield</th>
+                </tr>
+              </thead>
+              <tbody id="guesses-body">
+                <!-- Rows inserted dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="legend-section">
+          <h3>Legend</h3>
+          <div class="legend-grid">
+            <div class="legend-item">
+              <span class="legend-swatch match"></span>
+              <span>Exact / very close match</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-swatch near"></span>
+              <span>Somewhat close / same bucket</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-swatch miss"></span>
+              <span>Far off / no match</span>
+            </div>
+            <div class="legend-item">
+              <span>▲ / ▼</span>
+              <span>Target is higher / lower than your guess</span>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <span id="answer-reveal"></span>
+      </footer>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
