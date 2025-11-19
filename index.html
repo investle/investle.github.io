@@ -22,7 +22,10 @@
           </div>
           <div class="brand-text">
             <h1>Investle</h1>
-            <p>Guess the mystery stock in <span id="max-guesses-label">8</span> tries.</p>
+            <p>
+              Guess the mystery stock in
+              <span id="max-guesses-label">8</span> tries.
+            </p>
           </div>
         </div>
 
@@ -31,6 +34,11 @@
             <span class="pill-label">Mode</span>
             <span class="pill-value">Daily</span>
           </div>
+
+          <button id="theme-toggle" class="pill pill-soft theme-toggle" type="button">
+            <span class="pill-label">Theme</span>
+            <span class="pill-value" id="theme-toggle-label">Dark</span>
+          </button>
         </div>
       </header>
 
@@ -57,7 +65,7 @@
                   list="ticker-list"
                 />
               </div>
-              <button id="guess-btn" class="primary-btn">Guess</button>
+              <button id="guess-btn" class="primary-btn" type="button">Guess</button>
             </div>
 
             <datalist id="ticker-list">
@@ -144,7 +152,7 @@ Make a few guesses to reveal hints.
       </main>
 
       <footer class="footer">
-        <span>Built as a stock-guessing puzzle. Data snapshot only, not investment advice.</span>
+        <span>Data is a snapshot and purely for fun — not investment advice.</span>
       </footer>
     </div>
 
